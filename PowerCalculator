@@ -1,0 +1,32 @@
+public class PowerCalculator {
+	public static void main (String args[]) {
+		System.out.println(execute(2, 62));
+	}
+	
+	public static long execute(int a, int b) {
+		long result = find(a,b);		
+		return result;
+	}
+	
+	/**
+	 * Method to return base ^ power. Time complexity log(power)
+	 * @param base
+	 * @param power
+	 * @return
+	 */
+	public static long find( int base, int power) {
+		if (power == 1) {
+			return base;
+		}
+		
+		if ((power % 2) == 1) {
+			power = power / 2;
+			long halfResult = find(base, power);
+			return base * halfResult * halfResult ;
+		} else {
+			power = power/2 ;
+			long halfResult = find(base, power);
+			return halfResult * halfResult ;
+		}
+	}
+}
