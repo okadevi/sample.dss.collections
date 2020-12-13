@@ -1,0 +1,63 @@
+public class SumOfTwoString {
+
+	public static void main(String[] args) {
+		String s1 = "99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999";
+		String s2 = "1";
+		System.out.println("Lengths of both Strings are ="+s1.length()+","+s2.length());
+		String result = calculateSum(s1,s2);
+		System.out.println("Length of result sum ="+result.length());
+		System.out.println("Result sum is :"+result);
+	}
+	
+	/**
+	 * 
+	 * @param s1 Large positive number value
+	 * @param s2 Large positive number value
+	 * @return sum of s1 & s2 in string
+	 */
+	public static String calculateSum(String s1, String s2) {
+		StringBuffer result = new StringBuffer();
+		int sum = 0,
+				carrrier = 0,
+						pointer = 0;
+		String remainSubString = ""; 
+		
+		if (s1.length() > s2.length()) {
+			remainSubString = s1.substring(0, (s1.length() - s2.length()));
+		} else if (s1.length() < s2.length()) {
+			remainSubString = s2.substring(0, (s2.length() - s1.length()));
+		}
+				
+		for(int i=s1.length()-1 ,j = s2.length()-1 ; i>=0 && j >=0 ; i--,j--) {
+			sum = (carrrier == 0)? Integer.parseInt(""+s1.charAt(i)) + Integer.parseInt(""+s2.charAt(j)) :
+					Integer.parseInt(""+s1.charAt(i)) + Integer.parseInt(""+s2.charAt(j)) + carrrier;
+			
+			if(sum/10 > 0) {
+				result.append(""+(sum %10));//remainder added
+				carrrier = sum /10;
+			} else {
+				result.append(""+(sum %10));//remainder added
+				carrrier = 0; 
+			}
+		}
+		
+		pointer = remainSubString.length() -1;
+		while(pointer >= 0) {
+				sum = (carrrier == 0)? Integer.parseInt(""+remainSubString.charAt(pointer)) :
+					Integer.parseInt(""+remainSubString.charAt(pointer)) + carrrier;
+		
+				if(sum/10 > 0) {
+					result.append(""+(sum %10));//remainder added
+					carrrier = sum /10;
+				} else {
+					result.append(""+(sum %10));//remainder added
+					carrrier = 0; 
+				}
+				pointer--;
+			}
+		if(carrrier != 0) {
+			result.append(carrrier);
+		}
+		return (""+result.reverse());
+	}
+}
