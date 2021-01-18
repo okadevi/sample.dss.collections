@@ -1,0 +1,46 @@
+package co.algs.in;
+
+public class TreesMirrorValidation {
+	public static void main(String[] args) {
+		Tree root_1 = new Tree(1, new Tree(2,null,null), new Tree(3,null,null));
+		Tree root_2 = new Tree(1, new Tree(3,null,null), new Tree(3,null,null));
+		System.out.println(isMirror(root_1, root_2));
+	}
+	
+	public static boolean isMirror(Tree root_1, Tree root_2) {	
+		if (root_1 == null && root_2 == null) {
+			return true;
+		} else if (root_1.getData() == root_2.getData()) {
+			if (!isMirror(root_1.left, root_2.right)) {
+				return false;
+			}
+			return isMirror(root_1.right, root_2.left);
+		} else {
+			return false;
+		}	
+	}
+	
+	private static class Tree {
+		int data;
+		Tree left;
+		Tree right;
+	
+		public Tree(int data, Tree left, Tree right) {
+			this.data = data;
+			this.left = left;
+			this.right = right;
+		}
+
+		public int getData() {
+			return data;
+		}
+
+		public Tree getLeft() {
+			return left;
+		}
+
+		public Tree getRight() {
+			return right;
+		}
+	}
+}
