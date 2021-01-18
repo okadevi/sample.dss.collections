@@ -1,0 +1,52 @@
+package co.algs.in;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class TreeTraversalLevelOrderTraversal {
+	
+	public static void main(String[] args) {	
+		Tree tree_11 = new Tree("11",null,null);
+		Tree tree_10 = new Tree("10",tree_11,null);
+		Tree tree_9 = new Tree("9",null,tree_10);
+		Tree tree_8 = new Tree("8",tree_9,null);
+		Tree tree_7 = new Tree("7",null,null);
+		Tree tree_3 = new Tree("3",tree_7,tree_8);
+		Tree tree_5 = new Tree("5",null,null);
+		Tree tree_4 = new Tree("4",null,null);
+		Tree tree_2 = new Tree("2",tree_5,tree_4);
+		Tree tree_1 = new Tree("1",tree_3,tree_2);
+		
+		levelOrderTraversal(tree_1);
+	}
+	public static void levelOrderTraversal(Tree root) {
+		Queue<Tree> queue = new LinkedList<>();
+		queue.add(root);
+		
+		while (queue.size() > 0) {
+			//pop node from queue
+			Tree node = queue.poll();
+			if (node.left != null) {
+				queue.add(node.left);
+			} 
+			
+			if (node.right != null) {
+				queue.add(node.right);
+			}
+			
+			System.out.println(node.data);
+		}
+	}
+	
+	private static class Tree {
+		String data;
+		Tree left;
+		Tree right;
+		
+		public Tree(String data, Tree left, Tree right) {
+			this.data = data;
+			this.left = left;
+			this.right = right;
+		}
+	}
+}
