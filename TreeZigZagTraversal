@@ -1,0 +1,69 @@
+package co.algs.in;
+
+import java.util.Stack;
+
+public class TreeZigZagTraversal {
+	
+	public static void main(String[] args) {
+		Tree tree_11 = new Tree("11",null,null);
+		Tree tree_10 = new Tree("10",tree_11,null);
+		Tree tree_9 = new Tree("9",null,tree_10);
+		Tree tree_8 = new Tree("8",tree_9,null);
+		Tree tree_7 = new Tree("7",null,null);
+		Tree tree_3 = new Tree("3",tree_7,tree_8);
+		Tree tree_5 = new Tree("5",null,null);
+		Tree tree_4 = new Tree("4",null,null);
+		Tree tree_2 = new Tree("2",tree_5,tree_4);
+		Tree tree_1 = new Tree("1",tree_3,tree_2);
+		
+		traverseZigZag(tree_1 );
+	}
+	
+	public static void traverseZigZag (Tree root) {
+		Stack<Tree> stack_1 = new Stack<>();
+		Stack<Tree> stack_2 = new Stack<>();
+		String flag = "ODD";
+		
+		stack_1.push(root);
+		while(! (stack_1.isEmpty() && stack_2.isEmpty())) {
+			
+			if (flag == "ODD") {
+				Tree node = stack_1.pop();
+				if (node.left != null) {
+					stack_2.push(node.left);
+				}
+				if (node.right != null) {
+					stack_2.push(node.right);
+				}
+				System.out.println(node.data);
+				flag = (!stack_1.isEmpty()) ? "ODD" : "EVEN";
+				
+			} else {
+				Tree node = stack_2.pop();
+				if (node.right != null) {
+					stack_1.push(node.right);
+				}
+				if (node.left != null) {
+					stack_1.push(node.left);
+				}
+				System.out.println(node.data);
+				flag = (stack_2.size() != 0 ) ? "EVEN" : "ODD";
+			}
+
+		}
+		
+	}
+	
+	private static class Tree {	
+		String data;
+		Tree left;
+		Tree right;
+		
+		public Tree(String data, Tree left, Tree right) {
+			super();
+			this.data = data;
+			this.left = left;
+			this.right = right;
+		}		
+	}
+}
